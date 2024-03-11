@@ -1,0 +1,5 @@
+.*
+*.csv
+app2.py
+app3.py
+!/.gitignore
