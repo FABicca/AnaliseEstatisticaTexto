@@ -31,8 +31,8 @@ def get_chrome_driver_path() -> str:
 def get_chrome_path() -> str:
     return shutil.which('chromium-browser')
 
-st.write(get_chrome_driver_path())
 st.write(get_chrome_path())
+st.write(get_chrome_driver_path())
 
 @st.cache_resource(show_spinner=False)
 def getSite(link):
