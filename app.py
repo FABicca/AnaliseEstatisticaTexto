@@ -16,7 +16,8 @@ from bs4 import BeautifulSoup
 from seleniumbase import SB
 import os
 
-path_exemplos = os.getcwd() + '/exemplo'
+path_projeto = os.getcwd()
+path_exemplos = path_projeto + '/exemplo'
 texto_a_ser_analisado = ''
 df = None
 idioma = 'pt-br'
