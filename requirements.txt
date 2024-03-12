@@ -1,3 +1,5 @@
+beautifulsoup4
+seleniumbase
 pandas
 seaborn
 matplotlib
@@ -8,3 +10,4 @@ openpyxl
 nltk
 plotly
 wordcloud
+lxml

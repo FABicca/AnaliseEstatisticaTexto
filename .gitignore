@@ -1,5 +1,8 @@
 .venv
 *.csv
+.lock
+/chrome-linux64
+/downloaded_files
 app2.py
 app3.py
 !/.gitignore
