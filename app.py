@@ -29,13 +29,6 @@ def get_chrome_driver_path() -> str:
     return shutil.which('chromedriver')
 
 @st.cache_resource(show_spinner=False)
-def get_chrome_path() -> str:
-    return shutil.which('chromium-browser')
-
-st.write(get_chrome_path())
-st.write(get_chrome_driver_path())
-
-@st.cache_resource(show_spinner=False)
 def getSite(link):
     with SB(uc=True, incognito= True, headless=True,
             #binary_location= f'{path_projeto}/chrome-linux64/chrome'
