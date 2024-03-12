@@ -29,7 +29,7 @@ def get_chrome_driver_path() -> str:
     return shutil.which('chromedriver')
 
 def get_chrome_path() -> str:
-    return shutil.which('chrome')
+    return shutil.which('google-chrome')
 
 st.write(get_chrome_driver_path())
 st.write(get_chrome_path())
