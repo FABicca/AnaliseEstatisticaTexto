@@ -28,6 +28,7 @@ gerar_bigrama = False
 def get_chrome_driver_path() -> str:
     return shutil.which('chromedriver')
 
+@st.cache_resource(show_spinner=False)
 def get_chrome_path() -> str:
     return shutil.which('chromium-browser')
 
