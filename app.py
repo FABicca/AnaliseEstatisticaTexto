@@ -28,7 +28,16 @@ gerar_bigrama = False
 def get_chrome_path() -> str:
     return shutil.which('chrome')
 
-st.write(get_chrome_path())
+@st.cache_resource(show_spinner=False)
+def getSite(link):
+    with SB(uc=True, incognito= True, headless=True,
+            #binary_location= f'{path_projeto}/chrome-linux64/chrome'
+            #binary_location=get_chrome_path()
+            ) as sb:
+        sb.driver.uc_open_with_tab(link)
+        sb.sleep(3)
+        site = BeautifulSoup(sb.driver.page_source, 'html.parser') 
+    return site
 
 def readFile(uploaded_file):
     texto_a_ser_analisado = ''
@@ -111,12 +120,7 @@ elif escolha == "Link":
             elif not re.search('.br', link):
                 idioma = 'en-us'    
 
-            with SB(uc=True, incognito= True, headless=True,
-                    #binary_location= f'{path_projeto}/chrome-linux64/chrome'
-                    binary_location=get_chrome_path()) as sb:
-                sb.driver.uc_open_with_tab(link)
-                sb.sleep(3)
-                site = BeautifulSoup(sb.driver.page_source, 'html.parser')    
+            site = getSite(link) 
 
             site_body = site.find('body')
             texto_a_ser_analisado = site_body.get_text()
