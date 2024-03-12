@@ -26,7 +26,9 @@ gerar_bigrama = False
 
 @st.cache_resource(show_spinner=False)
 def get_chrome_path() -> str:
-    return shutil.which('chrome')
+    return shutil.which('chromedriver')
+
+st.write(get_chrome_path())
 
 @st.cache_resource(show_spinner=False)
 def getSite(link):
