@@ -28,7 +28,7 @@ gerar_bigrama = False
 def get_chrome_path() -> str:
     return shutil.which('chrome')
 
-#@st.cache_resource(show_spinner=False)
+@st.cache_resource(show_spinner=False)
 def getSite(link):
     with SB(uc=True, incognito= True, headless=True,
             #binary_location= f'{path_projeto}/chrome-linux64/chrome'
