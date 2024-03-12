@@ -14,8 +14,9 @@ import plotly.graph_objects as go
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from bs4 import BeautifulSoup
 from seleniumbase import SB
+import os
 
-path_exemplos = ''
+path_exemplos = os.getcwd() + '/exemplo'
 texto_a_ser_analisado = ''
 df = None
 idioma = 'pt-br'
@@ -102,7 +103,8 @@ elif escolha == "Link":
             elif not re.search('.br', link):
                 idioma = 'en-us'    
 
-            with SB(uc=True, incognito= True, headless=True) as sb:
+            with SB(uc=True, incognito= True, headless=True, 
+                    binary_location='/workspaces/AnaliseEstatisticaTexto/chrome-linux64/chrome') as sb:
                 sb.driver.uc_open_with_tab(link)
                 sb.sleep(3)
                 site = BeautifulSoup(sb.driver.page_source, 'html.parser')    
@@ -124,10 +126,10 @@ if texto_a_ser_analisado == '':
     
     st.write('Exemplo:')
 
-    st.image(f'{path_exemplos}/exemplo/wikipedia_img_1.png')
-    st.image(f'{path_exemplos}/exemplo/wikipedia_img_2.png')
-    st.image(f'{path_exemplos}/exemplo/wikipedia_img_3.png')
-    st.image(f'{path_exemplos}/exemplo/wikipedia_img_4.png')
+    st.image(f'{path_exemplos}/wikipedia_img_1.png')
+    st.image(f'{path_exemplos}/wikipedia_img_2.png')
+    st.image(f'{path_exemplos}/wikipedia_img_3.png')
+    st.image(f'{path_exemplos}/wikipedia_img_4.png')
 else:
     if isinstance(df, pd.DataFrame):
         st.write(df)
