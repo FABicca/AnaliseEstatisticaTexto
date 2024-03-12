@@ -15,6 +15,7 @@ from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from bs4 import BeautifulSoup
 from seleniumbase import SB
 import os
+import shutil
 
 path_projeto = os.getcwd()
 path_exemplos = path_projeto + '/exemplo'
@@ -22,6 +23,12 @@ texto_a_ser_analisado = ''
 df = None
 idioma = 'pt-br'
 gerar_bigrama = False
+
+@st.cache_resource(show_spinner=False)
+def get_chrome_path() -> str:
+    return shutil.which('chrome')
+
+st.write(get_chrome_path())
 
 def readFile(uploaded_file):
     texto_a_ser_analisado = ''
@@ -104,7 +111,9 @@ elif escolha == "Link":
             elif not re.search('.br', link):
                 idioma = 'en-us'    
 
-            with SB(uc=True, incognito= True, headless=True) as sb:
+            with SB(uc=True, incognito= True, headless=True,
+                    #binary_location= f'{path_projeto}/chrome-linux64/chrome'
+                    binary_location=get_chrome_path()) as sb:
                 sb.driver.uc_open_with_tab(link)
                 sb.sleep(3)
                 site = BeautifulSoup(sb.driver.page_source, 'html.parser')    
