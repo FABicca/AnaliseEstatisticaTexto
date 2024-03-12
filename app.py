@@ -103,8 +103,7 @@ elif escolha == "Link":
             elif not re.search('.br', link):
                 idioma = 'en-us'    
 
-            with SB(uc=True, incognito= True, headless=True, 
-                    binary_location='/workspaces/AnaliseEstatisticaTexto/chrome-linux64/chrome') as sb:
+            with SB(uc=True, incognito= True, headless=True) as sb:
                 sb.driver.uc_open_with_tab(link)
                 sb.sleep(3)
                 site = BeautifulSoup(sb.driver.page_source, 'html.parser')    
