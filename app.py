@@ -16,6 +16,10 @@ from bs4 import BeautifulSoup
 from seleniumbase import SB
 import os
 import shutil
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium import webdriver
+import time
 
 path_projeto = os.getcwd()
 path_exemplos = path_projeto + '/exemplo'
@@ -25,18 +29,41 @@ idioma = 'pt-br'
 gerar_bigrama = False
 
 @st.cache_resource(show_spinner=False)
-def get_chrome_driver_path() -> str:
+def get_chromedriver_path() -> str:
     return shutil.which('chromedriver')
 
 @st.cache_resource(show_spinner=False)
+def get_webdriver_options() -> Options:
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-features=NetworkService")
+    options.add_argument("--window-size=1920x1080")
+    options.add_argument("--disable-features=VizDisplayCompositor")
+    options.add_argument('--ignore-certificate-errors')
+    options.set_capability('goog:loggingPrefs', {'performance': 'ALL'})
+    return options
+
+@st.cache_resource(show_spinner=False)
+def get_logpath() -> str:
+    return os.path.join(os.getcwd(), 'selenium.log')
+
+def get_webdriver_service(logpath) -> Service:
+    service = Service(
+        executable_path=get_chromedriver_path(),
+        log_output=logpath,
+    )
+    return service
+
+@st.cache_resource(show_spinner=False)
 def getSite(link):
-    with SB(uc=True, incognito= True, headless=True,
-            #binary_location= f'{path_projeto}/chrome-linux64/chrome'
-            #binary_location=get_chrome_path()
-            ) as sb:
-        sb.driver.uc_open_with_tab(link)
-        sb.sleep(3)
-        site = BeautifulSoup(sb.driver.page_source, 'html.parser') 
+    driver = webdriver.Chrome(options=get_webdriver_options(),
+                        service=get_webdriver_service(logpath=get_logpath()))
+    driver.get(link)
+    time.sleep(3)
+    site = BeautifulSoup(driver.page_source, 'html.parser') 
     return site
 
 def readFile(uploaded_file):
