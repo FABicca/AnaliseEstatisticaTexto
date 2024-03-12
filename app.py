@@ -25,9 +25,13 @@ idioma = 'pt-br'
 gerar_bigrama = False
 
 @st.cache_resource(show_spinner=False)
+def get_chrome_driver_path() -> str:
+    return shutil.which('chromedriver')
+
 def get_chrome_path() -> str:
     return shutil.which('chrome')
 
+st.write(get_chrome_driver_path())
 st.write(get_chrome_path())
 
 @st.cache_resource(show_spinner=False)
