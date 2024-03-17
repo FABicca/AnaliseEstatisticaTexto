@@ -213,7 +213,7 @@ else:
 
         #Nuvem de Palavras
         all_tokens = " ".join(s for s in tokens_limpos)
-        wordcloud = wordcloud = WordCloud(width=1600, height=800, background_color="#f5f5f5").generate(all_tokens)
+        wordcloud = WordCloud(width=1600, height=800, background_color="#f5f5f5").generate(all_tokens)
 
         # mostrar a imagem final
         fig2, ax = plt.subplots(figsize=(10,6))
